@@ -1,6 +1,7 @@
 
 import numpy as np
 
+# please let me know (alan) if you need any more functions
 class repeatabelState:
     # This is the current and state of the game.
     def __init__(self):
@@ -42,12 +43,16 @@ class Player:
     def voteMission(self, gameState):
         pass
 
-    def voteMission(self, gameState):
+    def communicate(self, gameState):
         pass
 
+
+
 class GameLoop:
-    def __init__(self):
+    def __init__(self, players):
         #initialize the players ...etc
+        self.agents = players
+
 
     def reset_game(self):
         self.points = [0,0,0,0,0]
