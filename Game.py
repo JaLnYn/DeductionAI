@@ -4,7 +4,7 @@ import numpy as np
 import random
 
 # please let me know (alan) if you need any more functions
-class RepeatabelState:
+class RepeatableState:
     # This is the current and state of the game.
     def __init__(self):
                
@@ -86,24 +86,25 @@ class GameLoop:
 
 
     def run_loop(self):
-        running = true
+        running = True
         next_hammer = [0] *5
         cur_hammer = 0
 
         cur_proposing = random.randint(0,4)
-        while running == true:
+        while running == True:
             # first update the states
             if cur_hammer >= 5:
                 # hammer down the good guys loose
-                running = false
+                running = False
                 break
 
             for i in range(cur_hammer):
                 next_hammer[i] = 1
-            cur_rep_state = RepeatabelState()
+            cur_rep_state = RepeatableState()
             cur_rep_state.hammer = next_hammer
             cur_proposing = (cur_proposing + 1) % 5
-            cur_rep_state.propsing = [0] * 5
+            cur_rep_state.proposing = [0] * 5
+            cur_rep_state.proposing[cur_proposing] = 1
 
             self.repeatable_states.append(cur_rep_state)
 
@@ -121,11 +122,9 @@ class GameLoop:
 
 
     def proposalPhase(self): # update the gamestate and then ask the proposing agent to propose something
-        # get current person that is proposing
-        # get their proposal and update proposal
-
-        # update the next person proposing
-        pass
+        cur_rep_state = self.repeatable_states[-1]
+        cur_proposing = self.agents[cur_rep_state.proposing.index(1)]
+        cur_rep_state.proposal = cur_proposing.selectTeam(cur_rep_state)
     
     def communicationPhase(self): # comms phase allow the agents to send their comms
         # none for now
