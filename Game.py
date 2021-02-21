@@ -133,7 +133,15 @@ class GameLoop:
     def voteOnProposalPhase(self): # gamestate updates and allows all agents to vote
         # get the vote from everyone and update votes
         # returns whether the vote passed (true) or it failed (false)
-        pass
+        players = self.agents
+        cur_rep_state = self.repeatable_states[-1]
+        for i in range(len(players)):
+            cur_rep_state.votes[i] = players[i].voteOnTeam(cur_rep_state)
+        # returns whether the vote passed (true) or it failed (false)
+        if sum(cur_rep_state.votes)>2:
+            return True
+        else:
+            return False
 
     def missionPhase(self): 
         # get the choice from every person and 
